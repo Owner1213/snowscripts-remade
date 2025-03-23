@@ -139,3 +139,18 @@ run(function()
         Tooltip = "removes the annoying sound"
     })
 end)
+
+run(function() 
+    local houselights
+
+    houselights = vape.Categories.World:CreateModule({
+        Name = "Houselights",
+        Function = function(callback)
+            if callback then 
+                workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0.4
+            else
+                workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
+            end
+        end
+    })
+end)
