@@ -158,4 +158,6 @@ run(function()
         end,
         Tooltip = "Toggles the house's lights"
     })
+
+    if workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness > 0 and not houselights.Enabled then houselights:Toggle() end
 end)
