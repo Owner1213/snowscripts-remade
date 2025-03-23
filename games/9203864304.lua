@@ -26,6 +26,9 @@ local function downloadFile(path, func)
 	end
 	return (func or readfile)(path)
 end
+local function notif(...) 
+    vape:CreateNotification(...)
+end
 local run = function(func)
 	func()
 end
@@ -84,41 +87,16 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-        print("New descendant added:", i.Name)
-
         if i.Name == "Money" or i.Name == "MoneyBag" then
             local character = lplr.Character or lplr.CharacterAdded:Wait()
-            local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
             if not humanoidRootPart then
-                print("HumanoidRootPart not found!")
+                notif("Vape", "HumanoidRootPart not found!", 3, "warning")
                 return
             end
 
-            print("Attempting to simulate touch on:", i.Name)
-
-            if i:IsA("Model") then
-                i = i.PrimaryPart or i:FindFirstChildWhichIsA("BasePart")
-                if not i then
-                    print("No valid BasePart found in Model:", i.Name)
-                    return
-                end
-            elseif not i:IsA("BasePart") then
-                print("Invalid part:", i.Name)
-                return
-            end
-
-            -- Simulate the touch
-            print("Simulating touch on:", i.Name)
-            firetouchinterest(humanoidRootPart, i, 0)
-            task.wait(0.1)
-            firetouchinterest(humanoidRootPart, i, 1)
-
-        elseif i.Name == 'DollaDollaBills' then
-            print("Destroying DollaDollaBills")
-            task.wait()
-            i:Stop()
-            i:Destroy()
+            i.CFrame = humanoidRootPart.CFrame
         end
     end
 
@@ -126,16 +104,12 @@ run(function()
         Name = "AutoCollectMoney",
         Function = function(callback)
             if callback then 
-                print("AutoCollectMoney enabled")
-                
-                -- Check existing money
                 for _, obj in ipairs(workspace:GetDescendants()) do
                     OnDescendantAdded(obj)
                 end
                 
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
             else
-                print("AutoCollectMoney disabled")
                 if connection then
                     connection:Disconnect()
                 end
