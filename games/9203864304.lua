@@ -64,6 +64,13 @@ local tween = vape.Libraries.tween
 local targetinfo = vape.Libraries.targetinfo
 local getfontsize = vape.Libraries.getfontsize
 local getcustomasset = vape.Libraries.getcustomasset
+local sessioninfo = vape.Libraries.sessioninfo
+
+local rafdata = {
+    rentamt = workspace.Roommate.Head.Amt.Value or 0
+}
+
+sessioninfo:AddItem("Roommate's rent amount", function(val) return rafdata.rentamt end, true)
 
 run(function() 
     local autoclick
