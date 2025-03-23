@@ -91,8 +91,11 @@ run(function()
 
             end]]
             local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
-				if not rp then return end
-				firetouchinterest(rp, i, 0)
+            if not rp then return end
+            firetouchinterest(rp, i, 0)
+            local i2 = i:FindFirstChildWhichIsA("TouchTransmitter")
+
+            if i2 and i2:IsA("TouchTransmitter") then firetouchinterest(rp, i2.Parent, 0) end
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
