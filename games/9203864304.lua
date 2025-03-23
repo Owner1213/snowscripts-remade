@@ -150,7 +150,7 @@ run(function()
             if callback then 
                 repeat
                     workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0.4
-                    task.wait()
+                    runService.Heartbeat:Wait()
                 until not houselights.Enabled
             else
                 workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
@@ -159,7 +159,10 @@ run(function()
         Tooltip = "Toggles the house's lights"
     })
 
-    if workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness > 0 and not houselights.Enabled then 
-        houselights:Toggle()
-    end
+    repeat 
+        if workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness > 0 and not houselights.Enabled then 
+            houselights:Toggle()
+        end
+        runService.Heartbeat:Wait()
+    until false
 end)
