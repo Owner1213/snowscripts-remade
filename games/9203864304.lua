@@ -67,7 +67,7 @@ local getcustomasset = vape.Libraries.getcustomasset
 local sessioninfo = vape.Libraries.sessioninfo
 
 sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
-
+sessioninfo:AddItem("Can Raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value end, true)
 run(function() 
     local autoclick
 
