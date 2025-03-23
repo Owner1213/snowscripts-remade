@@ -309,14 +309,14 @@ local function createMobileButton(buttonapi, position)
 	buttonapi.Bind = {Button = button}
 end
 
-local function downloadFile(path, noerrormsg, func)
+local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/Owner1213/snowscripts-remade/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			if not noerrormsg then error(res) end
+			warn(res)
 		end
 		if path:find('.lua') then
 			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
@@ -2457,17 +2457,17 @@ end)
 task.spawn(function() 
 	if not isfolder('newvape/profiles') then makefolder('newvape/profiles') end
 
-	downloadFile('newvape/profiles/1430993116.gui.txt', true)
-	downloadFile('newvape/profiles/3451663900.gui.txt', true)
-	downloadFile('newvape/profiles/4395344197.gui.txt', true)
-	downloadFile('newvape/profiles/5740616134.gui.txt', true)
+	downloadFile('newvape/profiles/1430993116.gui.txt')
+	downloadFile('newvape/profiles/3451663900.gui.txt')
+	downloadFile('newvape/profiles/4395344197.gui.txt')
+	downloadFile('newvape/profiles/5740616134.gui.txt')
 	
-	downloadFile('newvape/profiles/default4483381587.txt', true)
-	downloadFile('newvape/profiles/default9203864304.txt', true)
-	downloadFile('newvape/profiles/default12507488315.txt', true)
-	downloadFile('newvape/profiles/default16696943761.txt', true)
+	downloadFile('newvape/profiles/default4483381587.txt')
+	downloadFile('newvape/profiles/default9203864304.txt')
+	downloadFile('newvape/profiles/default12507488315.txt')
+	downloadFile('newvape/profiles/default16696943761.txt')
 
-	downloadFile('gui.txt', true)
+	downloadFile('gui.txt')
 end)
 
 function mainapi:BlurCheck()
