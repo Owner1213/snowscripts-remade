@@ -84,7 +84,7 @@ run(function()
 
     local function OnDescendantAdded(i) 
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            firetouchinterest(i:FindFirstChildWhichIsA("TouchTransmitter"))
+            firetouchinterest(i)
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
