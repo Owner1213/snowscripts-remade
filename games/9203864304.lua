@@ -84,16 +84,27 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
+        print("New descendant added:", i.Name)
+
         if i.Name == "Money" or i.Name == "MoneyBag" then
             local character = lplr.Character or lplr.CharacterAdded:Wait()
             local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
-            if not humanoidRootPart then return end
             
-            -- Ensure it's a BasePart or find one
+            if not humanoidRootPart then
+                print("HumanoidRootPart not found!")
+                return
+            end
+
+            print("Attempting to simulate touch on:", i.Name)
+
             if i:IsA("Model") then
                 i = i.PrimaryPart or i:FindFirstChildWhichIsA("BasePart")
-                if not i then return end
+                if not i then
+                    print("No valid BasePart found in Model:", i.Name)
+                    return
+                end
             elseif not i:IsA("BasePart") then
+                print("Invalid part:", i.Name)
                 return
             end
 
@@ -104,6 +115,7 @@ run(function()
             firetouchinterest(humanoidRootPart, i, 1)
 
         elseif i.Name == 'DollaDollaBills' then
+            print("Destroying DollaDollaBills")
             task.wait()
             i:Stop()
             i:Destroy()
@@ -114,9 +126,19 @@ run(function()
         Name = "AutoCollectMoney",
         Function = function(callback)
             if callback then 
+                print("AutoCollectMoney enabled")
+                
+                -- Check existing money
+                for _, obj in ipairs(workspace:GetDescendants()) do
+                    OnDescendantAdded(obj)
+                end
+                
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
             else
-                connection:Disconnect()
+                print("AutoCollectMoney disabled")
+                if connection then
+                    connection:Disconnect()
+                end
             end
         end
     })
