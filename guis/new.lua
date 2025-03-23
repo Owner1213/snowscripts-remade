@@ -5912,7 +5912,13 @@ modules:CreateToggle({
 		end
 	end
 })
-
+modules:CreateButton({
+	Name = 'IY',
+	Function = function()
+		loadstring(game:HttpGet('https://infyiff.github.io/resources/IY_FE.txt'))()
+	end,
+	Tooltip = 'Executes infinite yield'
+})
 --[[
 	GUI Settings
 ]]
