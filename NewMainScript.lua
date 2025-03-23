@@ -34,11 +34,16 @@ local function wipeFolder(path)
 	end
 end
 
+task.wait(.03)
+
 for _, folder in {'newvape', 'newvape/games', 'newvape/profiles', 'newvape/assets', 'newvape/libraries', 'newvape/guis'} do
 	if not isfolder(folder) then
 		makefolder(folder)
 	end
+	task.wait()
 end
+
+task.wait(.03)
 
 if not shared.VapeDeveloper then
 	local _, subbed = pcall(function()
