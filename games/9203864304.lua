@@ -84,7 +84,7 @@ run(function()
 
     local function OnDescendantAdded(i) 
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            firetouchinterest(lplr.Character:FindFirstChild("HumanoidRootPart"), i, 0)
+            firetouchinterest(lplr.Character:FindFirstChild("HumanoidRootPart"), i, 0) print("hi")
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
