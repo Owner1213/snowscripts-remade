@@ -96,6 +96,7 @@ run(function()
                 return
             end
 
+            i.CanCollide = false
             i.CFrame = humanoidRootPart.CFrame
         end
     end
