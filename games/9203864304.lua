@@ -102,7 +102,8 @@ run(function()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
             if not humanoidRootPart then
-                notif("Vape", "HumanoidRootPart not found!", 3, "warning")
+                notif("AutoCollectMoney", "HumanoidRootPart not found!", 3, "warning")
+                task.wait(1)
                 return
             end
 
@@ -147,10 +148,18 @@ run(function()
         Name = "Houselights",
         Function = function(callback)
             if callback then 
-                workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0.4
+                repeat
+                    workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0.4
+                    task.wait()
+                until not houselights.Enabled
             else
                 workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
             end
-        end
+        end,
+        Tooltip = "Toggles the house's lights"
     })
+
+    if workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness > 0 and not houselights.Enabled then 
+        houselights:Toggle()
+    end
 end)
