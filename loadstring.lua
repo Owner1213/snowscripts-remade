@@ -1,1 +1,0 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Owner1213/snowscripts-remade/main/NewMainScript.lua", true))()
