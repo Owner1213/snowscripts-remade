@@ -1,4 +1,7 @@
-repeat task.wait() until game:IsLoaded() and (isrbxactive or iswindowactive)()
+repeat task.wait() until game:IsLoaded()
+if not (isrbxactive or iswindowactive)() then 
+	repeat task.wait() until (isrbxactive or iswindowactive)()
+end
 if shared.vape then shared.vape:Uninject() end
 
 -- why do exploits fail to implement anything correctly? Is it really that hard?

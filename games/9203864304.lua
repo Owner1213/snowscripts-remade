@@ -77,3 +77,29 @@ run(function()
         end
     })
 end)
+
+run(function()
+    local autocollectmoney
+    local connection
+
+    local function OnDescendantAdded(i) 
+        if i.Name == "Money" or i.Name == "MoneyBag" then
+            firetouchinterest(i:FindFirstChildWhichIsA("TouchTransmitter"))
+        elseif i.Name == 'DollaDollaBills' then
+            task.wait()
+            i:Stop()
+            i:Destroy()
+        end
+    end
+
+    autocollectmoney = vape.Categories.Utility:CreateModule({
+        Name = "AutoCollectMoney",
+        Function = function(callback)
+            if callback then 
+                connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
+            else
+                connection:Disconnect()
+            end
+        end
+    })
+end)
