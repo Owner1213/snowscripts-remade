@@ -150,7 +150,7 @@ run(function()
             if callback then 
                 repeat
                     workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0.4
-                    runService.Heartbeat:Wait()
+                    task.wait()
                 until not houselights.Enabled
             else
                 workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
