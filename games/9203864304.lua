@@ -58,6 +58,7 @@ end
 local gameCamera = workspace.CurrentCamera or workspace:FindFirstChildWhichIsA('Camera')
 local lplr = playersService.LocalPlayer
 local assetfunction = getcustomasset
+local purchase = game:GetService("ReplicatedStorage"):WaitForChild("Purchase")
 
 local vape = shared.vape
 local tween = vape.Libraries.tween
@@ -66,8 +67,13 @@ local getfontsize = vape.Libraries.getfontsize
 local getcustomasset = vape.Libraries.getcustomasset
 local sessioninfo = vape.Libraries.sessioninfo
 
+purchase:FireServer("Roommate")
+
 sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
-sessioninfo:AddItem("Can Raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
+sessioninfo:AddItem("Can raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
+
+workspace.Roommate.Head.Dialog.InitialPrompt = "hi"
+
 run(function() 
     local autoclick
 
@@ -91,7 +97,7 @@ run(function()
 
     local function OnDescendantAdded(i)
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            i.Transparency = 1
+            if i.Transparency then i.Transparency = 1 end
             local character = lplr.Character or lplr.CharacterAdded:Wait()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
