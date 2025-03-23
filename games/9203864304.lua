@@ -66,7 +66,7 @@ local getfontsize = vape.Libraries.getfontsize
 local getcustomasset = vape.Libraries.getcustomasset
 local sessioninfo = vape.Libraries.sessioninfo
 
-sessioninfo:AddItem("Roommate's rent amount", function(val) return workspace.Roommate.Head.Amt.Value end, true)
+sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
 
 run(function() 
     local autoclick
