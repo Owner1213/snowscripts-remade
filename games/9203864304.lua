@@ -85,25 +85,24 @@ run(function()
 
     local function OnDescendantAdded(i)
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
-            if not rp then return end
+            local character = lplr.Character or lplr.CharacterAdded:Wait()
+            local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+            if not humanoidRootPart then return end
             
-            if i:IsA("BasePart") then
-                -- Simulate touch
-                firetouchinterest(rp, i, 0)
-                task.wait(0.1) -- Small delay to ensure touch registers
-                firetouchinterest(rp, i, 1) -- Simulate untouch
-            else
-                local basePart = i:FindFirstChildWhichIsA("BasePart")
-                if basePart then
-                    firetouchinterest(rp, basePart, 0)
-                    task.wait(0.1)
-                    firetouchinterest(rp, basePart, 1)
-                else
-                    warn("No BasePart found in", i:GetFullName())
-                end
+            -- Ensure it's a BasePart or find one
+            if i:IsA("Model") then
+                i = i.PrimaryPart or i:FindFirstChildWhichIsA("BasePart")
+                if not i then return end
+            elseif not i:IsA("BasePart") then
+                return
             end
-    
+
+            -- Simulate the touch
+            print("Simulating touch on:", i.Name)
+            firetouchinterest(humanoidRootPart, i, 0)
+            task.wait(0.1)
+            firetouchinterest(humanoidRootPart, i, 1)
+
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
