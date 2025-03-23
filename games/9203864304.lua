@@ -85,13 +85,14 @@ run(function()
 
     local function OnDescendantAdded(i) 
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            if collectmethod.Value == "Touchinterest" then 
-                local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
-				if not rp then return end
-				firetouchinterest(rp, i, 0)
+            --[[if collectmethod.Value == "Touchinterest" then 
+                
             elseif collectmethod.Value == "Touched" then
 
-            end
+            end]]
+            local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
+				if not rp then return end
+				firetouchinterest(rp, i, 0)
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
