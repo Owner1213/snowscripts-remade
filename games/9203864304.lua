@@ -83,19 +83,27 @@ run(function()
     local collectmethod
     local connection
 
-    local function OnDescendantAdded(i) 
+    local function OnDescendantAdded(i)
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            --[[if collectmethod.Value == "Touchinterest" then 
-                
-            elseif collectmethod.Value == "Touched" then
-
-            end]]
             local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
             if not rp then return end
-            firetouchinterest(rp, i, 0)
-            local i2 = i:FindFirstChildWhichIsA("TouchTransmitter")
-
-            if i2 and i2:IsA("TouchTransmitter") then firetouchinterest(rp, i2.Parent, 0) end
+            
+            if i:IsA("BasePart") then
+                -- Simulate touch
+                firetouchinterest(rp, i, 0)
+                task.wait(0.1) -- Small delay to ensure touch registers
+                firetouchinterest(rp, i, 1) -- Simulate untouch
+            else
+                local basePart = i:FindFirstChildWhichIsA("BasePart")
+                if basePart then
+                    firetouchinterest(rp, basePart, 0)
+                    task.wait(0.1)
+                    firetouchinterest(rp, basePart, 1)
+                else
+                    warn("No BasePart found in", i:GetFullName())
+                end
+            end
+    
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
