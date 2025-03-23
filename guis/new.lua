@@ -2454,6 +2454,22 @@ task.spawn(function()
 	until mainapi.Loaded == nil
 end)
 
+task.spawn(function() 
+	if not isfolder('newvape/profiles') then makefolder('newvape/profiles') end
+
+	downloadFile('newvape/profiles/1430993116.gui.txt')
+	downloadFile('newvape/profiles/3451663900.gui.txt')
+	downloadFile('newvape/profiles/4395344197.gui.txt')
+	downloadFile('newvape/profiles/5740616134.gui.txt')
+	
+	downloadFile('newvape/profiles/default4483381587.txt')
+	downloadFile('newvape/profiles/default9203864304.txt')
+	downloadFile('newvape/profiles/default12507488315.txt')
+	downloadFile('newvape/profiles/default16696943761.txt')
+
+	downloadFile('gui.txt')
+end)
+
 function mainapi:BlurCheck()
 	if self.ThreadFix then
 		setthreadidentity(8)
