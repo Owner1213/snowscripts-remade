@@ -83,7 +83,7 @@ end)
 
 run(function()
     local autocollectmoney
-    local collectmethod
+    local sound
     local connection
 
     local function OnDescendantAdded(i)
@@ -98,6 +98,10 @@ run(function()
 
             i.CanCollide = false
             i.CFrame = humanoidRootPart.CFrame
+        elseif sound.Value and i.Name == "DollaDollaBills" then
+            task.wait()
+            i:Stop()
+            i:Destroy()
         end
     end
 
@@ -116,5 +120,12 @@ run(function()
                 end
             end
         end
+    })
+
+    sound = autocollectmoney:CreateToggle({
+        Name = "No Sound",
+        Function = function(val) end,
+        Default = true
+        Tooltip = "removes the annoying sound"
     })
 end)
