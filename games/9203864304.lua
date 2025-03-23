@@ -88,6 +88,7 @@ run(function()
 
     local function OnDescendantAdded(i)
         if i.Name == "Money" or i.Name == "MoneyBag" then
+            i.Transparency = 1
             local character = lplr.Character or lplr.CharacterAdded:Wait()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
