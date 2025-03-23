@@ -80,12 +80,18 @@ end)
 
 run(function()
     local autocollectmoney
+    local collectmethod
     local connection
 
     local function OnDescendantAdded(i) 
         if i.Name == "Money" or i.Name == "MoneyBag" then
-            firetouchinterest(lplr.Character:FindFirstChild("HumanoidRootPart"), i, 0)
-            firetouchinterest(lplr.Character:FindFirstChild("HumanoidRootPart"), i, 1)
+            if collectmethod.Value == "Touchinterest" then 
+                local rp = lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart")
+				if not rp then return end
+				firetouchinterest(rp, i, 0)
+            elseif collectmethod.Value == "Touched" then
+
+            end
         elseif i.Name == 'DollaDollaBills' then
             task.wait()
             i:Stop()
