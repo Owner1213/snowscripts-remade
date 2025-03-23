@@ -2,6 +2,11 @@
   "Modules": {
     "Invisible": { "Enabled": false, "Bind": [], "Options": [] },
     "Panic": { "Enabled": false, "Bind": [], "Options": [] },
+    "AutoCollectMoney": {
+      "Enabled": true,
+      "Bind": [],
+      "Options": { "No Sound": { "Enabled": true } }
+    },
     "GamingChair": {
       "Enabled": false,
       "Bind": [],
@@ -65,7 +70,7 @@
         "Movement": { "Value": "Motor" }
       }
     },
-    "MurderMystery": { "Enabled": false, "Bind": [], "Options": [] },
+    "Houselights": { "Enabled": true, "Bind": [], "Options": [] },
     "AimAssist": {
       "Enabled": false,
       "Bind": [],
@@ -171,6 +176,37 @@
         "Player Distance": { "ValueMin": 0, "ValueMax": 64 }
       }
     },
+    "TriggerBot": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": {
+        "Distance": { "Value": 1000, "Max": 1000 },
+        "Targets": {
+          "Players": true,
+          "NPCs": true,
+          "Invisible": false,
+          "Walls": false
+        },
+        "Next Shot Delay": { "Value": 0, "Max": 1 }
+      }
+    },
+    "Speed": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": {
+        "Pulse Length": { "Value": 0, "Max": 1 },
+        "Move Mode": { "Value": "MoveDirection" },
+        "Wall Check": { "Enabled": true },
+        "Custom Jump": { "Enabled": false },
+        "Pulse Delay": { "Value": 0, "Max": 1 },
+        "TP Frequency": { "Value": 0, "Max": 1 },
+        "Custom Properties": { "Enabled": true },
+        "Speed": { "Value": 50, "Max": 150 },
+        "Mode": { "Value": "Velocity" },
+        "Jump Power": { "Value": 30, "Max": 50 },
+        "AutoJump": { "Enabled": false }
+      }
+    },
     "AntiFall": {
       "Enabled": false,
       "Bind": [],
@@ -187,18 +223,27 @@
         }
       }
     },
-    "TriggerBot": {
+    "Fly": {
       "Enabled": false,
       "Bind": [],
       "Options": {
-        "Distance": { "Value": 1000, "Max": 1000 },
-        "Targets": {
-          "Players": true,
-          "NPCs": true,
-          "Invisible": false,
-          "Walls": false
-        },
-        "Next Shot Delay": { "Value": 0, "Max": 1 }
+        "TP Frequency": { "Value": 0, "Max": 1 },
+        "Speed Mode": { "Value": "Velocity" },
+        "Vertical Speed": { "Value": 50, "Max": 150 },
+        "Speed": { "Value": 50, "Max": 150 },
+        "Ground": { "Value": 0.1, "Max": 1 },
+        "Air": { "Value": 2, "Max": 5 },
+        "Pulse Length": { "Value": 0, "Max": 1 },
+        "Move Mode": { "Value": "MoveDirection" },
+        "Wall Check": { "Enabled": true },
+        "Keys": { "Value": "Space/LeftControl" },
+        "Pulse Delay": { "Value": 0, "Max": 1 },
+        "Float Mode": { "Value": "Velocity" },
+        "Custom Properties": { "Enabled": true },
+        "Humanoid State": { "Value": "None" },
+        "Bounce Length": { "Value": 0, "Max": 30 },
+        "Bounce Delay": { "Value": 0, "Max": 1 },
+        "PlatformStand": { "Enabled": false }
       }
     },
     "Parkour": { "Enabled": false, "Bind": [], "Options": [] },
@@ -233,46 +278,6 @@
         "Gravity": { "Value": 192, "Max": 192 }
       }
     },
-    "Speed": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": {
-        "Pulse Length": { "Value": 0, "Max": 1 },
-        "Move Mode": { "Value": "MoveDirection" },
-        "Wall Check": { "Enabled": true },
-        "Custom Jump": { "Enabled": false },
-        "Pulse Delay": { "Value": 0, "Max": 1 },
-        "TP Frequency": { "Value": 0, "Max": 1 },
-        "Custom Properties": { "Enabled": true },
-        "Speed": { "Value": 50, "Max": 150 },
-        "Mode": { "Value": "Velocity" },
-        "Jump Power": { "Value": 30, "Max": 50 },
-        "AutoJump": { "Enabled": false }
-      }
-    },
-    "Fly": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": {
-        "TP Frequency": { "Value": 0, "Max": 1 },
-        "Speed Mode": { "Value": "Velocity" },
-        "Vertical Speed": { "Value": 50, "Max": 150 },
-        "Speed": { "Value": 50, "Max": 150 },
-        "Ground": { "Value": 0.1, "Max": 1 },
-        "Air": { "Value": 2, "Max": 5 },
-        "Pulse Length": { "Value": 0, "Max": 1 },
-        "Move Mode": { "Value": "MoveDirection" },
-        "Wall Check": { "Enabled": true },
-        "Keys": { "Value": "Space/LeftControl" },
-        "Pulse Delay": { "Value": 0, "Max": 1 },
-        "Float Mode": { "Value": "Velocity" },
-        "Custom Properties": { "Enabled": true },
-        "Humanoid State": { "Value": "None" },
-        "Bounce Length": { "Value": 0, "Max": 30 },
-        "Bounce Delay": { "Value": 0, "Max": 1 },
-        "PlatformStand": { "Enabled": false }
-      }
-    },
     "Timer": {
       "Enabled": false,
       "Bind": [],
@@ -282,6 +287,29 @@
       "Enabled": false,
       "Bind": [],
       "Options": { "Speed": { "Value": 50, "Max": 150 } }
+    },
+    "HitBoxes": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": {
+        "Part": { "Value": "RootPart" },
+        "Targets": {
+          "Players": true,
+          "NPCs": false,
+          "Invisible": false,
+          "Walls": false
+        },
+        "Expand amount": { "Value": 0, "Max": 2 }
+      }
+    },
+    "AnimationPlayer": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": {
+        "Speed": { "Value": 0.1, "Max": 2 },
+        "Priority": { "Value": "Action4" },
+        "Animation": { "Value": "" }
+      }
     },
     "NameTags": {
       "Enabled": false,
@@ -313,41 +341,15 @@
         "Player Distance": { "ValueMin": 0, "ValueMax": 64 }
       }
     },
-    "SilentAim": {
+    "StaffDetector": {
       "Enabled": false,
       "Bind": [],
       "Options": {
-        "Circle Filled": { "Enabled": false },
-        "Ignored Scripts": { "ListEnabled": [], "List": [] },
-        "Gravity": { "Value": 192.6, "Max": 192.6 },
-        "Range": { "Value": 150, "Max": 1000 },
-        "Circle Color": {
-          "Hue": 0.44,
-          "Sat": 1,
-          "Value": 1,
-          "Opacity": 1,
-          "Rainbow": false
-        },
-        "Raycast Type": { "Value": "All" },
-        "Speed": { "Value": 1000, "Max": 1000 },
-        "Mode": { "Value": "Mouse" },
-        "Hit Chance": { "Value": 85, "Max": 100 },
-        "Method": { "Value": "FindPartOnRay" },
-        "Next Shot Delay": { "Value": 0, "Max": 1 },
-        "Headshot Chance": { "Value": 65, "Max": 100 },
-        "Origin": { "Value": "RootPart" },
-        "Transparency": { "Value": 0.5, "Max": 1 },
-        "Range Circle": { "Enabled": false },
-        "Targets": {
-          "Players": true,
-          "NPCs": false,
-          "Invisible": false,
-          "Walls": false
-        },
-        "Projectile": { "Enabled": false },
-        "Offset": { "Value": "0, 0, 0" },
-        "AutoFire": { "Enabled": false },
-        "Wallbang": { "Enabled": false }
+        "Profile": { "Value": "default" },
+        "Role": { "Value": "" },
+        "Users": { "ListEnabled": [], "List": [] },
+        "Group": { "Value": "" },
+        "Mode": { "Value": "Uninject" }
       }
     },
     "Killaura": {
@@ -402,25 +404,6 @@
         "Size": { "Value": 0.2, "Max": 1 }
       }
     },
-    "HitBoxes": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": {
-        "Part": { "Value": "RootPart" },
-        "Targets": {
-          "Players": true,
-          "NPCs": false,
-          "Invisible": false,
-          "Walls": false
-        },
-        "Expand amount": { "Value": 0, "Max": 2 }
-      }
-    },
-    "Xray": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": { "Part": { "ListEnabled": [], "List": [] } }
-    },
     "Chams": {
       "Enabled": false,
       "Bind": [],
@@ -452,20 +435,26 @@
         }
       }
     },
+    "Xray": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": { "Part": { "ListEnabled": [], "List": [] } }
+    },
+    "AutoFloppaClick": { "Enabled": true, "Bind": [], "Options": [] },
     "Anti-AFK": { "Enabled": false, "Bind": [], "Options": [] },
-    "Search": {
+    "Reach": {
       "Enabled": false,
       "Bind": [],
       "Options": {
-        "Color": {
-          "Hue": 0.44,
-          "Sat": 1,
-          "Value": 1,
-          "Opacity": 1,
-          "Rainbow": false
+        "Chance": { "Value": 100, "Max": 100 },
+        "Mode": { "Value": "TouchInterest" },
+        "Targets": {
+          "Players": true,
+          "NPCs": false,
+          "Invisible": false,
+          "Walls": false
         },
-        "Transparency": { "Value": 0, "Max": 1 },
-        "Parts": { "ListEnabled": [], "List": [] }
+        "Range": { "Value": 0, "Max": 2 }
       }
     },
     "Spider": {
@@ -485,6 +474,8 @@
         "Mode": { "Value": "Tool" }
       }
     },
+    "AntiRagdoll": { "Enabled": false, "Bind": [], "Options": [] },
+    "Disabler": { "Enabled": false, "Bind": [], "Options": [] },
     "ChatSpammer": {
       "Enabled": false,
       "Bind": [],
@@ -495,38 +486,27 @@
         "Hide Flood Message": { "Enabled": true }
       }
     },
-    "Disabler": { "Enabled": false, "Bind": [], "Options": [] },
-    "Reach": {
+    "Search": {
       "Enabled": false,
       "Bind": [],
       "Options": {
-        "Chance": { "Value": 100, "Max": 100 },
-        "Mode": { "Value": "TouchInterest" },
-        "Targets": {
-          "Players": true,
-          "NPCs": false,
-          "Invisible": false,
-          "Walls": false
+        "Color": {
+          "Hue": 0.44,
+          "Sat": 1,
+          "Value": 1,
+          "Opacity": 1,
+          "Rainbow": false
         },
-        "Range": { "Value": 0, "Max": 2 }
+        "Transparency": { "Value": 0, "Max": 1 },
+        "Parts": { "ListEnabled": [], "List": [] }
       }
     },
-    "AntiRagdoll": { "Enabled": false, "Bind": [], "Options": [] },
     "AutoRejoin": {
       "Enabled": false,
       "Bind": [],
       "Options": { "Sort": { "Value": "Descending" } }
     },
     "Rejoin": { "Enabled": false, "Bind": [], "Options": [] },
-    "AnimationPlayer": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": {
-        "Speed": { "Value": 0.1, "Max": 2 },
-        "Priority": { "Value": "Action4" },
-        "Animation": { "Value": "" }
-      }
-    },
     "TargetStrafe": {
       "Enabled": false,
       "Bind": [],
@@ -542,6 +522,43 @@
         "Y Factor": { "Value": 100, "Max": 100 }
       }
     },
+    "SilentAim": {
+      "Enabled": false,
+      "Bind": [],
+      "Options": {
+        "Circle Filled": { "Enabled": false },
+        "Ignored Scripts": { "ListEnabled": [], "List": [] },
+        "Gravity": { "Value": 192.6, "Max": 192.6 },
+        "Range": { "Value": 150, "Max": 1000 },
+        "Circle Color": {
+          "Hue": 0.44,
+          "Sat": 1,
+          "Value": 1,
+          "Opacity": 1,
+          "Rainbow": false
+        },
+        "Raycast Type": { "Value": "All" },
+        "Speed": { "Value": 1000, "Max": 1000 },
+        "Mode": { "Value": "Mouse" },
+        "Hit Chance": { "Value": 85, "Max": 100 },
+        "Method": { "Value": "FindPartOnRay" },
+        "Next Shot Delay": { "Value": 0, "Max": 1 },
+        "Headshot Chance": { "Value": 65, "Max": 100 },
+        "Origin": { "Value": "RootPart" },
+        "Transparency": { "Value": 0.5, "Max": 1 },
+        "Range Circle": { "Enabled": false },
+        "Targets": {
+          "Players": true,
+          "NPCs": false,
+          "Invisible": false,
+          "Walls": false
+        },
+        "Projectile": { "Enabled": false },
+        "Offset": { "Value": "0, 0, 0" },
+        "AutoFire": { "Enabled": false },
+        "Wallbang": { "Enabled": false }
+      }
+    },
     "PlayerModel": {
       "Enabled": false,
       "Bind": [],
@@ -555,17 +572,6 @@
         "Texture": { "Value": "" }
       }
     },
-    "StaffDetector": {
-      "Enabled": false,
-      "Bind": [],
-      "Options": {
-        "Profile": { "Value": "default" },
-        "Role": { "Value": "" },
-        "Users": { "ListEnabled": [], "List": [] },
-        "Group": { "Value": "" },
-        "Mode": { "Value": "Uninject" }
-      }
-    },
     "SafeWalk": { "Enabled": false, "Bind": [], "Options": [] },
     "Phase": {
       "Enabled": false,
@@ -574,7 +580,8 @@
         "Mode": { "Value": "Part" },
         "Wall Size": { "Value": 5, "Max": 20 }
       }
-    }
+    },
+    "MurderMystery": { "Enabled": false, "Bind": [], "Options": [] }
   },
   "Categories": {
     "Radar": {
@@ -649,6 +656,7 @@
       "Pinned": false
     },
     "Session Info": {
+      "Enabled": true,
       "Options": {
         "Border Color": {
           "Hue": 0.44,
@@ -671,7 +679,7 @@
         "Border": { "Enabled": false },
         "Offset": { "Enabled": true }
       },
-      "Position": { "Y": 46, "X": 240 },
+      "Position": { "Y": 573, "X": 5 },
       "Pinned": false
     },
     "Target Info": {

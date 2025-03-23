@@ -28,8 +28,8 @@
         "Enable Multi-Keybinding": { "Enabled": false },
         "Toggle alert": { "Enabled": true },
         "GUI Theme": {
-          "Hue": 0.8702597618103027,
-          "Sat": 0.8997002748342661,
+          "Hue": 0.9366220235824585,
+          "Sat": 0.8231284343279325,
           "Value": 1,
           "Rainbow": true,
           "CustomColor": true
@@ -42,11 +42,7 @@
       },
       "Position": { "Y": 60, "X": 6 }
     },
-    "Minigames": {
-      "Enabled": true,
-      "Position": { "Y": 60, "X": 1386 },
-      "Expanded": true
-    },
+    "Minigames": { "Position": { "Y": 60, "X": 1616 } },
     "Render": {
       "Enabled": true,
       "Position": { "Y": 60, "X": 696 },
