@@ -125,7 +125,7 @@ run(function()
     sound = autocollectmoney:CreateToggle({
         Name = "No Sound",
         Function = function(val) end,
-        Default = true
+        Default = true,
         Tooltip = "removes the annoying sound"
     })
 end)
