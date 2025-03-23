@@ -69,6 +69,8 @@ local sessioninfo = vape.Libraries.sessioninfo
 
 purchase:FireServer("Roommate")
 
+repeat task.wait() until workspace:FindFirstChild("Roommate")
+
 sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
 sessioninfo:AddItem("Can raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
 
