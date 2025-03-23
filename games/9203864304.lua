@@ -98,7 +98,7 @@ run(function()
 
             i.CanCollide = false
             i.CFrame = humanoidRootPart.CFrame
-        elseif sound.Value and i.Name == "DollaDollaBills" then
+        elseif sound.Enabled and i.Name == "DollaDollaBills" then
             task.wait()
             i:Stop()
             i:Destroy()
