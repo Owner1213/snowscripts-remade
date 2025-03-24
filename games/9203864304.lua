@@ -262,7 +262,7 @@ run(function()
         Name = 'CollectMeteorites',
         Function = function(callback) 
             if callback then 
-                for i, v in pairs(workspace) do 
+                for i, v in pairs(workspace:GetChildren()) do 
                     if v.Name == "Meteorite" then 
                         v:GetChildren()[1].CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
                     end
