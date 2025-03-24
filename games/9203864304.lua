@@ -55,6 +55,26 @@ local coreGui = cloneref(game:GetService('CoreGui'))
 local isnetworkowner = identifyexecutor and table.find({'AWP', 'Nihon'}, ({identifyexecutor()})[1]) and isnetworkowner or function()
 	return true
 end
+
+local oFireProximityPrompt = fireproximityprompt
+fireproximityprompt = function(prompt)
+    if typeof(prompt) ~= "Instance" or not prompt:IsA("ProximityPrompt") then
+        error("Invalid ProximityPrompt instance")
+    end
+
+    local success, result = pcall(function()
+        oFireProximityPrompt(Instance.new("ProximityPrompt"))
+    end)
+
+    if not success or result ~= nil then
+        prompt:InputHoldBegin(playersService.LocalPlayer)
+        task.wait(prompt.HoldDuration + 0.1)
+        prompt:InputHoldEnd(playersService.LocalPlayer)
+    else
+        oFireProximityPrompt(prompt)
+    end
+end
+
 local gameCamera = workspace.CurrentCamera or workspace:FindFirstChildWhichIsA('Camera')
 local lplr = playersService.LocalPlayer
 local assetfunction = getcustomasset
@@ -156,7 +176,10 @@ run(function()
                     task.wait()
                 until not houselights.Enabled
             else
-                workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
+                repeat
+                    workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness = 0
+                    task.wait()
+                until not vape.Loaded
             end
         end,
         Tooltip = "Toggles the house's lights"
@@ -232,4 +255,11 @@ run(function()
         Default = true,
         Tooltip = 'collects the recipe when done cooking'
     })
+end)
+
+task.spawn(function()
+    repeat
+        fireproximityprompt(workspace["Floppy Disk"].ProximityPrompt)
+        task.wait(10)
+    until not vape.Loaded
 end)
