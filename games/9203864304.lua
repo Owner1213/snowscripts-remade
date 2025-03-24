@@ -235,9 +235,7 @@ run(function()
 
                 chef:Toggle()
 
-                if lplr.Character.HumanoidRootPart and collectrecipe.Enabled then
-                    lplr.Character.HumanoidRootPart.CFrame = workspace:WaitForChild(recipe.Value):GetChildren()[1].CFrame
-                end
+                workspace:WaitForChild(recipe.Value):GetChildren()[1].CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
             end
         end
     })
@@ -254,6 +252,23 @@ run(function()
         Function = function(val) end,
         Default = true,
         Tooltip = 'collects the recipe when done cooking'
+    })
+end)
+
+run(function()
+    local collectMeteorites
+
+    collectMeteorites = vape.Categories.World:CreateModule({
+        Name = 'CollectMeteorites',
+        Function = function(callback) 
+            if callback then 
+                for i, v in pairs(workspace) do 
+                    if v.Name == "Meteorite" then 
+                        v:GetChildren()[1].CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
+                    end
+                end
+            end
+        end
     })
 end)
 
