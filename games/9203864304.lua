@@ -212,7 +212,7 @@ run(function()
 
                 chef:Toggle()
 
-                if lplr.Character.HumanoidRootPart then
+                if lplr.Character.HumanoidRootPart and collectrecipe.Enabled then
                     lplr.Character.HumanoidRootPart.CFrame = workspace:WaitForChild(recipe.Value).CFrame
                 end
             end
