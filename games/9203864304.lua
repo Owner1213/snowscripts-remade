@@ -201,11 +201,11 @@ run(function()
                 for _, ingredient in ipairs(selectedRecipe.Ingredients) do
                     Purchase5:FireServer(ingredient)
                     CookingEvent:FireServer("Add Ingredient", ingredient)
-                    notif("Chef", "Purchased and Added to stove: ".. ingredient, 1)
+                    notif("Chef", "Purchased and Added to stove: ".. ingredient, 2.3)
                 end
     
                 CookingEvent:FireServer("Change Temperature", selectedRecipe.Temperature)
-                notif("Chef", "Set temperature to:".. tempInWords(selectedRecipe.Temperature), 1)
+                notif("Chef", "Set temperature to:".. tempInWords(selectedRecipe.Temperature), 2.3)
 
                 CookingEvent:FireServer("Cook")
                 notif("Chef", "Cooking ".. recipe.Value, 5)
