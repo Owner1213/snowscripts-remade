@@ -27,7 +27,7 @@ local function downloadFile(path, func)
 	return (func or readfile)(path)
 end
 local function notif(...) 
-    vape:CreateNotification(...)
+    shared.vape:CreateNotification(...)
 end
 local run = function(func)
 	func()
