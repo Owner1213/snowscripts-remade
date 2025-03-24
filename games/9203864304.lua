@@ -168,6 +168,7 @@ end)
 run(function()
     local chef
     local recipe
+    local collectrecipe
 
     local CookingEvent = game:GetService("ReplicatedStorage"):WaitForChild("CookingEvent")
     local Purchase5 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase5")
@@ -210,6 +211,10 @@ run(function()
                 notif("Chef", "Cooking ".. recipe.Value, 5)
 
                 chef:Toggle()
+
+                if lplr.Character.HumanoidRootPart then
+                    lplr.Character.HumanoidRootPart.CFrame = workspace:WaitForChild(recipe.Value).CFrame
+                end
             end
         end
     })
@@ -219,5 +224,11 @@ run(function()
         List = {'Grilled Cheese', 'Pizza'},
         Function = function(val) end,
         Tooltip = 'Choose what recipe you want'
+    })
+
+    collectrecipe = chef:CreateToggle({
+        Name = 'Collect Recipe',
+        Function = function(val) end
+        Tooltip = 'collects the recipe when done cooking'
     })
 end)
