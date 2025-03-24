@@ -69,12 +69,12 @@ local sessioninfo = vape.Libraries.sessioninfo
 
 purchase:FireServer("Roommate")
 
-repeat task.wait() until workspace:FindFirstChild("Roommate")
+task.spawn(function()
+    repeat task.wait() until workspace:FindFirstChild("Roommate")
 
-sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
-sessioninfo:AddItem("Can raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
-
-workspace.Roommate.Head.Dialog.InitialPrompt = "hi"
+    sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
+    sessioninfo:AddItem("Can raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
+end)
 
 run(function() 
     local autoclick
@@ -98,13 +98,14 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-        if i.Name == "Money" or i.Name == "MoneyBag" then
+        if i.Name == "Money" then
             if i.Transparency then i.Transparency = 1 end
             local character = lplr.Character or lplr.CharacterAdded:Wait()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
             if not humanoidRootPart then
                 notif("AutoCollectMoney", "HumanoidRootPart not found!", 3, "warning")
+                autocollectmoney:Toggle()
                 task.wait(1)
                 return
             end
@@ -139,7 +140,7 @@ run(function()
         Name = "No Sound",
         Function = function(val) end,
         Default = true,
-        Tooltip = "removes the annoying sound"
+        Tooltip = "removes the cash pickup sound"
     })
 end)
 
