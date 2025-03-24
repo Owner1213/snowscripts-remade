@@ -164,3 +164,58 @@ run(function()
 
     if workspace.Light:FindFirstChildWhichIsA("PointLight").Brightness > 0 and not houselights.Enabled then houselights:Toggle() end
 end)
+
+run(function()
+    local chef
+    local recipe
+
+    local CookingEvent = game:GetService("ReplicatedStorage"):WaitForChild("CookingEvent")
+
+    local recipes = {
+        ["Grilled Cheese"] = {
+            Ingredients = {"Bread", "Cheese"},
+            Temperature = 3
+        },
+        ["Pizza"] = {
+            Ingredients = {"Flour", "Tomato", "Cheese"},
+            Temperature = 2
+        }
+    }
+
+    chef = vape.Categories.Utility:CreateModule({
+        Name = "Chef",
+        Function = function(callback)
+            if callback then 
+                if not recipe or not recipes[recipe.Value] then
+                    notif("Chef", "Invalid or missing recipe.", 5, "warning")
+                    return
+                end
+    
+                local selectedRecipe = recipes[recipe.Value]
+                local tempInWords = function(num)
+                    return num == 1 and 'Low' or num == 2 and 'Medium' or 'High'
+                end
+    
+                for _, ingredient in ipairs(selectedRecipe.Ingredients) do
+                    purchase:FireServer(ingredient)
+                    CookingEvent:FireServer("Add Ingredient", ingredient)
+                    notif("Chef", "Purchased and Added to stove: ".. ingredient, 1)
+                end
+    
+                CookingEvent:FireServer("Change Temperature", selectedRecipe.Temperature)
+                notif("Chef", "Set temperature to:".. tempInWords(selectedRecipe.Temperature), 1)
+
+                notif("Chef", "Cooking ".. recipe.Value, 5)
+
+                chef:Toggle()
+            end
+        end
+    })
+
+    recipe = chef:CreateDropdown({
+        Name = 'Recipe',
+        List = {'Grilled Cheese', 'Pizza'},
+        Function = function(val) end,
+        Tooltip = 'Choose what recipe you want'
+    })
+end)
