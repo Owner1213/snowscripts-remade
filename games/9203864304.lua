@@ -206,6 +206,7 @@ run(function()
                 CookingEvent:FireServer("Change Temperature", selectedRecipe.Temperature)
                 notif("Chef", "Set temperature to:".. tempInWords(selectedRecipe.Temperature), 1)
 
+                CookingEvent:FireServer("Cook")
                 notif("Chef", "Cooking ".. recipe.Value, 5)
 
                 chef:Toggle()
