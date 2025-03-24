@@ -228,7 +228,7 @@ run(function()
 
     collectrecipe = chef:CreateToggle({
         Name = 'Collect Recipe',
-        Function = function(val) end
+        Function = function(val) end,
         Tooltip = 'collects the recipe when done cooking'
     })
 end)
