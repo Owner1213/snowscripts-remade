@@ -316,7 +316,8 @@ local function downloadFile(path, func)
 			return game:HttpGet('https://raw.githubusercontent.com/Owner1213/snowscripts-remade/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
-			warn(res)
+			vape:CreateNotification("Vape", res, 60, "alert")
+			error(res)
 		end
 		if path:find('.lua') then
 			res = '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n'..res
@@ -2457,17 +2458,23 @@ end)
 task.spawn(function() 
 	if not isfolder('newvape/profiles') then makefolder('newvape/profiles') end
 
-	downloadFile('newvape/profiles/1430993116.gui.txt')
-	downloadFile('newvape/profiles/3451663900.gui.txt')
-	downloadFile('newvape/profiles/4395344197.gui.txt')
-	downloadFile('newvape/profiles/5740616134.gui.txt')
-	
-	downloadFile('newvape/profiles/default4483381587.txt')
-	downloadFile('newvape/profiles/default9203864304.txt')
-	downloadFile('newvape/profiles/default12507488315.txt')
-	downloadFile('newvape/profiles/default16696943761.txt')
+	local files = {
+		'newvape/profiles/1430993116.gui.txt',
+		'newvape/profiles/3451663900.gui.txt',
+		'newvape/profiles/4395344197.gui.txt',
+		'newvape/profiles/5740616134.gui.txt',
 
-	downloadFile('gui.txt')
+		'newvape/profiles/default4483381587.txt',
+		'newvape/profiles/default9203864304.txt',
+		'newvape/profiles/default12507488315.txt',
+		'newvape/profiles/default16696943761.txt',
+		'newvape/profiles/gui.txt'
+	}
+
+	for _, file in files do
+		downloadFile(file)
+		task.wait()
+	end
 end)
 
 function mainapi:BlurCheck()
