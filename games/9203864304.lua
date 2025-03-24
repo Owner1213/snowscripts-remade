@@ -257,15 +257,37 @@ end)
 
 run(function()
     local collectMeteorites
+    local connection
+
+    local function OnDescendantAdded(i)
+        if i.Name == "Meteorite" and i:IsA("Tool") then
+            local character = lplr.Character or lplr.CharacterAdded:Wait()
+            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+            
+            if not humanoidRootPart then
+                notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
+                collectMeteorites:Toggle()
+                task.wait(1)
+                return
+            end
+
+            i.CanCollide = false
+            i.CFrame = humanoidRootPart.CFrame
+        end
+    end
 
     collectMeteorites = vape.Categories.World:CreateModule({
         Name = 'CollectMeteorites',
         Function = function(callback) 
             if callback then 
-                for i, v in pairs(workspace:GetChildren()) do 
-                    if v.Name == "Meteorite" then 
-                        v:GetChildren()[1].CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
-                    end
+                for _, obj in ipairs(workspace:GetDescendants()) do
+                    OnDescendantAdded(obj)
+                end
+                
+                connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
+            else
+                if connection then 
+                    connection:Disconnect()
                 end
             end
         end
