@@ -170,6 +170,7 @@ run(function()
     local recipe
 
     local CookingEvent = game:GetService("ReplicatedStorage"):WaitForChild("CookingEvent")
+    local Purchase5 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase5")
 
     local recipes = {
         ["Grilled Cheese"] = {
@@ -197,7 +198,7 @@ run(function()
                 end
     
                 for _, ingredient in ipairs(selectedRecipe.Ingredients) do
-                    purchase:FireServer(ingredient)
+                    Purchase5:FireServer(ingredient)
                     CookingEvent:FireServer("Add Ingredient", ingredient)
                     notif("Chef", "Purchased and Added to stove: ".. ingredient, 1)
                 end
