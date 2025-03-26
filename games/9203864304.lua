@@ -293,10 +293,3 @@ run(function()
         end
     })
 end)
-
-task.spawn(function()
-    repeat
-        fireproximityprompt(workspace["Floppy Disk"].ProximityPrompt)
-        task.wait(10)
-    until not vape.Loaded
-end)
