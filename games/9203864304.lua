@@ -115,6 +115,7 @@ end)
 run(function()
     local autocollectmoney
     local sound
+    
     local connection
 
     local function OnDescendantAdded(i)
