@@ -94,8 +94,10 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-        local highlight = Instance.new("Highlight")
-        highlight.Parent = i
+        if not object:FindFirstChildOfClass("Highlight") then
+            local highlight = Instance.new("Highlight")
+            highlight.Parent = object
+        end
     end
 
     local function removeHighlight(i) 
