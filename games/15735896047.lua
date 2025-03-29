@@ -90,36 +90,39 @@ local sessioninfo = vape.Libraries.sessioninfo
 run(function()
     local boxesp
     local boxes = workspace.Enemies
-
     local connection
 
     local function OnDescendantAdded(i)
-        if not object:FindFirstChildOfClass("Highlight") then
-            local highlight = Instance.new("Highlight")
-            highlight.Parent = object
-        elseif object:FindFirstChildOfClass("Highlight") and object:FindFirstChildOfClass("Highlight").Enabled == false then
-            object:FindFirstChildOfClass("Highlight").Enabled = true
+        if i and i:IsA("Instance") then
+            local highlight = i:FindFirstChildOfClass("Highlight")
+            if not highlight then
+                highlight = Instance.new("Highlight")
+                highlight.Parent = i
+            elseif not highlight.Enabled then
+                highlight.Enabled = true
+            end
         end
     end
 
-    local function removeHighlight(i) 
-        i:FindFirstChildWhichIsA("Highlight"):Destroy()
+    local function removeHighlight(i)
+        local highlight = i:FindFirstChildWhichIsA("Highlight")
+        if highlight then
+            highlight:Destroy()
+        end
     end
 
     boxesp = vape.Categories.Render:CreateModule({
         Name = 'BoxESP',
-        Function = function(callback) 
-            if callback then 
+        Function = function(callback)
+            if callback then
                 for _, obj in ipairs(boxes:GetChildren()) do
                     OnDescendantAdded(obj)
                 end
-                
                 connection = boxes.DescendantAdded:Connect(OnDescendantAdded)
             else
                 if connection then
                     connection:Disconnect()
                 end
-
                 for _, obj in ipairs(boxes:GetChildren()) do
                     removeHighlight(obj)
                 end
