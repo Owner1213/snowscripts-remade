@@ -97,6 +97,8 @@ run(function()
         if not object:FindFirstChildOfClass("Highlight") then
             local highlight = Instance.new("Highlight")
             highlight.Parent = object
+        elseif object:FindFirstChildOfClass("Highlight") and object:FindFirstChildOfClass("Highlight").Enabled = false then
+            object:FindFirstChildOfClass("Highlight").Enabled = true
         end
     end
 
