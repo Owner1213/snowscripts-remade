@@ -93,7 +93,7 @@ run(function()
     local t = {}
 
     for _, v in pairs(lplr.PlayerGui:WaitForChild('Market').CropsList:GetChildren()) do
-        if v:IsA('TextButton') then 
+        if v:IsA('TextButton') and v.Name ~= 'Template' then 
             table.insert(t, v.Name)
         end
     end
