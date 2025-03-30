@@ -87,17 +87,36 @@ local getcustomasset = vape.Libraries.getcustomasset
 local sessioninfo = vape.Libraries.sessioninfo
 
 run(function() 
-    local autofarm
+    local Plant
+    local dropdown
+
+    local t = {}
+
+    for _, v in pairs(lplr.PlayerGui:WaitForChild('Market').CropsList) do
+        if v:IsA('TextButton') then 
+            table.insert(t, v.Name)
+        end
+    end
 
     local PlantAll = replicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("PlantCrop"):WaitForChild("PlantAll")
 
-    autofarm = vape.Categories.Blatant:CreateModule({
-        Name = 'PlantPumpkin',
+    Plant = vape.Categories.Blatant:CreateModule({
+        Name = 'PlantExploit',
         Function = function(callback) 
             if callback then 
                 PlantAll:FireServer('Pumpkin')
-                autofarm:Toggle()
+                Plant:Toggle()
             end
-        end
+        end,
+        Tooltip = 'Plant anything you want'
+    })
+
+    dropdown = Plant:CreateDropdown({
+        Name = 'Plant',
+        List = t,
+        Function = function(val)
+            print(val, 'dropdown value changed')
+        end,
+        Tooltip = 'This is a test dropdown.'
     })
 end)
