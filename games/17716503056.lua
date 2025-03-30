@@ -96,6 +96,7 @@ run(function()
         Function = function(callback) 
             if callback then 
                 PlantAll:FireServer('Pumpkin')
+                PlantPumpkin:Toggle()
             end
         end
     })
