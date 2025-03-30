@@ -5891,6 +5891,13 @@ general:CreateButton({
 	Tooltip = 'This will set your profile to the default settings of Vape'
 })
 general:CreateButton({
+	Name = 'IY',
+	Function = function()
+		loadstring(game:HttpGet('https://infyiff.github.io/resources/IY_FE.txt'))()
+	end,
+	Tooltip = 'Executes infinite yield'
+})
+general:CreateButton({
 	Name = 'Self destruct',
 	Function = function()
 		mainapi:Uninject()
@@ -5934,13 +5941,6 @@ modules:CreateToggle({
 			mainapi.Libraries.entity.refresh()
 		end
 	end
-})
-modules:CreateButton({
-	Name = 'IY',
-	Function = function()
-		loadstring(game:HttpGet('https://infyiff.github.io/resources/IY_FE.txt'))()
-	end,
-	Tooltip = 'Executes infinite yield'
 })
 --[[
 	GUI Settings
