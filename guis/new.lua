@@ -2476,6 +2476,7 @@ task.spawn(function()
 		if file and file ~= "" then
 			local path = 'newvape/profiles/' .. file
 			downloadFile(path)
+			task.wait(1)
 		end
 	end
 end)
