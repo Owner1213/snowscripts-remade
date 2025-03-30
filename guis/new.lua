@@ -5898,6 +5898,18 @@ general:CreateButton({
 	Tooltip = 'Executes infinite yield'
 })
 general:CreateButton({
+	Name = 'Copy PlaceId',
+	Function = function()
+		setclipboard(tostring(game.PlaceId))
+	end,
+})
+general:CreateButton({
+	Name = 'Copy GameId',
+	Function = function()
+		setclipboard(tostring(game.GameId))
+	end,
+})
+general:CreateButton({
 	Name = 'Self destruct',
 	Function = function()
 		mainapi:Uninject()
