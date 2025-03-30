@@ -104,7 +104,7 @@ run(function()
         Name = 'PlantExploit',
         Function = function(callback) 
             if callback then 
-                PlantAll:FireServer('Pumpkin')
+                PlantAll:FireServer(dropdown.Value)
                 Plant:Toggle()
             end
         end,
@@ -114,9 +114,7 @@ run(function()
     dropdown = Plant:CreateDropdown({
         Name = 'Plant',
         List = t,
-        Function = function(val)
-            print(val, 'dropdown value changed')
-        end,
-        Tooltip = 'This is a test dropdown.'
+        Function = function(val) end,
+        Tooltip = 'The crop you want to plant'
     })
 end)
