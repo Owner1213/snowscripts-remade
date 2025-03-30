@@ -31,7 +31,7 @@ local inputService = cloneref(game:GetService('UserInputService'))
 local textService = cloneref(game:GetService('TextService'))
 local guiService = cloneref(game:GetService('GuiService'))
 local runService = cloneref(game:GetService('RunService'))
-local httpService = cloneref(game:GetService('HttpService'))
+local httpService = cloneref(game:GetService('httpService'))
 
 local fontsize = Instance.new('GetTextBoundsParams')
 fontsize.Width = math.huge
@@ -2455,26 +2455,45 @@ task.spawn(function()
 	until mainapi.Loaded == nil
 end)
 
-task.spawn(function() 
-	if not isfolder('newvape/profiles') then makefolder('newvape/profiles') end
+local repoOwner = "Owner1213"
+local repoName = "snowscripts-remade"
+local repoBranch = "main"
+local folderPath = "profiles"
+local localFolder = "newvape/profiles"
 
-	local files = {
-		'newvape/profiles/1430993116.gui.txt',
-		'newvape/profiles/3451663900.gui.txt',
-		'newvape/profiles/4395344197.gui.txt',
-		'newvape/profiles/5740616134.gui.txt',
+if not isfolder(localFolder) then
+    makefolder(localFolder)
+end
 
-		'newvape/profiles/default4483381587.txt',
-		'newvape/profiles/default9203864304.txt',
-		'newvape/profiles/default12507488315.txt',
-		'newvape/profiles/default16696943761.txt',
-		'newvape/profiles/gui.txt'
-	}
+local function fetchGitHubFiles()
+    local url = ("https://api.github.com/repos/%s/%s/contents/%s?ref=%s"):format(repoOwner, repoName, folderPath, repoBranch)
+    
+    local success, result = pcall(function()
+        return httpService:GetAsync(url)
+    end)
+    
+    if success then
+        return httpService:JSONDecode(result)
+    else
+        warn("Failed to fetch files:", result)
+        return {}
+    end
+end
 
-	for _, file in files do
-		downloadFile(file)
-		repeat task.wait() until isfolder(file)
-	end
+task.spawn(function()
+    local files = fetchGitHubFiles()
+
+    if not files or #files == 0 then
+        warn("No files found in the repository.")
+        return
+    end
+
+    for _, file in ipairs(files) do
+        if file.type == "file" then
+            local filePath = folderPath .. "/" .. file.name
+            downloadFile(filePath)
+        end
+    end
 end)
 
 function mainapi:BlurCheck()
