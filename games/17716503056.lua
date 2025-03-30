@@ -78,7 +78,6 @@ end
 local gameCamera = workspace.CurrentCamera or workspace:FindFirstChildWhichIsA('Camera')
 local lplr = playersService.LocalPlayer
 local assetfunction = getcustomasset
-local purchase = game:GetService("ReplicatedStorage"):WaitForChild("Purchase")
 
 local vape = shared.vape
 local tween = vape.Libraries.tween
