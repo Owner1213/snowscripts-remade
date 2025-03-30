@@ -2455,45 +2455,29 @@ task.spawn(function()
 	until mainapi.Loaded == nil
 end)
 
-local repoOwner = "Owner1213"
-local repoName = "snowscripts-remade"
-local repoBranch = "main"
-local folderPath = "profiles"
-local localFolder = "newvape/profiles"
+task.spawn(function() 
+	if not isfolder('newvape/profiles') then 
+		makefolder('newvape/profiles') 
+	end
 
-if not isfolder(localFolder) then
-    makefolder(localFolder)
-end
+	local success, fileList = pcall(function()
+		return game:HttpGet('https://raw.githubusercontent.com/Owner1213/snowscripts-remade/'..readfile('newvape/profiles/commit.txt')..'/filelist.txt')
+	end)
 
-local function fetchGitHubFiles()
-    local url = ("https://api.github.com/repos/%s/%s/contents/%s?ref=%s"):format(repoOwner, repoName, folderPath, repoBranch)
-    
-    local success, result = pcall(function()
-        return httpService:GetAsync(url)
-    end)
-    
-    if success then
-        return httpService:JSONDecode(result)
-    else
-        warn("Failed to fetch files:", result)
-        return {}
-    end
-end
+	if not success then
+		warn("Failed to fetch filelist:", fileList)
+		return
+	end
 
-task.spawn(function()
-    local files = fetchGitHubFiles()
+	local files = string.split(fileList, "\n")
 
-    if not files or #files == 0 then
-        warn("No files found in the repository.")
-        return
-    end
-
-    for _, file in ipairs(files) do
-        if file.type == "file" then
-            local filePath = folderPath .. "/" .. file.name
-            downloadFile(filePath)
-        end
-    end
+	for _, file in ipairs(files) do
+		file = file:gsub("\r", "")
+		if file and file ~= "" then
+			local path = 'newvape/profiles/' .. file
+			downloadFile(path)
+		end
+	end
 end)
 
 function mainapi:BlurCheck()
