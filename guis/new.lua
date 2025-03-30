@@ -2473,7 +2473,7 @@ task.spawn(function()
 
 	for _, file in files do
 		downloadFile(file)
-		task.wait()
+		repeat task.wait() until isfolder(file)
 	end
 end)
 
