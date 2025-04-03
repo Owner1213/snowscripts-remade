@@ -309,7 +309,7 @@ run(function()
             end
 
             i:GetChildren()[1].CanCollide = false
-            i.CFrame = humanoidRootPart.CFrame
+            i:GetChildren()[1].CFrame = humanoidRootPart.CFrame
         end
     end
 
