@@ -205,8 +205,42 @@ run(function()
         ["Pizza"] = {
             Ingredients = {"Flour", "Tomato", "Cheese"},
             Temperature = 2
+        },
+        ["Spaghetti"] = {
+            Ingredients = {"Beef", "Tomato", "Noodles"},
+            Temperature = 2
+        },
+        ["Cake"] = {
+            Ingredients = {"Egg", "Milk", "Sugar", "Flour"},
+            Temperature = 1
+        },
+        ["Ramen"] = {
+            Ingredients = {"Noodles", "Egg", "Soy Sauce"},
+            Temperature = 2
+        },
+        ["Mac & Cheese"] = {
+            Ingredients = {"Cheese", "Noodles", "Milk"},
+            Temperature = 2
+        },
+        ["Salad"] = {
+            Ingredients = {"Lettuce", "Lettuce", "Tomato"},
+            Temperature = 3
+        },
+        ["Burger"] = {
+            Ingredients = {"Bread", "Beef", "Lettuce", "Tomato"},
+            Temperature = 1
         }
     }
+    
+    local function getRecipeList() 
+        local t = {}
+    
+        for recipeName, _ in pairs(recipes) do 
+            table.insert(t, recipeName)
+        end
+    
+        return t
+    end
 
     chef = vape.Categories.Utility:CreateModule({
         Name = "Chef",
@@ -245,7 +279,7 @@ run(function()
 
     recipe = chef:CreateDropdown({
         Name = 'Recipe',
-        List = {'Grilled Cheese', 'Pizza'},
+        List = getRecipeList(),
         Function = function(val) end,
         Tooltip = 'Choose what recipe you want'
     })
