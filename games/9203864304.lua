@@ -120,7 +120,7 @@ run(function()
 
     local function OnDescendantAdded(i)
         if i.Name == "Money" then
-            if i.Transparency then i.Transparency = 1 end
+            pcall(function() i.Transparency = 1 end)
             local character = lplr.Character or lplr.CharacterAdded:Wait()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
