@@ -236,7 +236,9 @@ run(function()
 
                 chef:Toggle()
 
-                workspace:WaitForChild(recipe.Value):GetChildren()[1].CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
+                local obj = workspace:WaitForChild(recipe.Value):GetChildren()[1]
+                if obj.CanCollide then obj.CanCollide = false end
+                obj.CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
             end
         end
     })
