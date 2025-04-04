@@ -196,6 +196,22 @@ run(function()
 
     local CookingEvent = game:GetService("ReplicatedStorage"):WaitForChild("CookingEvent")
     local Purchase5 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase5")
+    local Purchase2 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase2")
+
+    local function hasMeteorites(inventory)
+        local count = 0
+
+        for _, item in ipairs(inventory) do
+            if item.Name == "Meteorite" then
+                count = count + 1
+                if count >= 2 then
+                    return true
+                end
+            end
+        end
+    
+        return false
+    end
 
     local recipes = {
         ["Grilled Cheese"] = {
@@ -230,6 +246,10 @@ run(function()
             Ingredients = {"Bread", "Beef", "Lettuce", "Tomato"},
             Temperature = 1
         }
+        ["Space Soup"] = {
+            Ingredients = {"Almond Water", "Almond Water", "Meteorite", "Meteorite"},
+            Temperature = 1
+        }
     }
     
     local function getRecipeList() 
@@ -256,10 +276,22 @@ run(function()
                     return num == 1 and 'Low' or num == 2 and 'Medium' or 'High'
                 end
     
-                for _, ingredient in ipairs(selectedRecipe.Ingredients) do
-                    Purchase5:FireServer(ingredient)
-                    CookingEvent:FireServer("Add Ingredient", ingredient)
-                    notif("Chef", "Purchased and Added to stove: ".. ingredient, 2.3)
+                if recipe.Value ~= "Space Soup" then 
+                    for _, ingredient in ipairs(selectedRecipe.Ingredients) do
+                        Purchase5:FireServer(ingredient)
+                        CookingEvent:FireServer("Add Ingredient", ingredient)
+                        notif("Chef", "Purchased and Added to stove: ".. ingredient, 2.3)
+                    end
+                else
+                    if not hasMeteorites() then 
+                        notif('Chef', "You need at least 2 meteorites!", 4, 'warning')
+                    end
+
+                    for _, ingredient in ipairs(selectedRecipe.Ingredients) do
+                        if ingredient ~= 'Meteorite' then Purchase2:FireServer(ingredient) end
+                        CookingEvent:FireServer("Add Ingredient", ingredient)
+                        notif("Chef", ingredient ~= 'Meteorite' and "Purchased and Added to stove: ".. ingredient or "Added to stove: ".. ingredient, 2.3)
+                    end
                 end
     
                 CookingEvent:FireServer("Change Temperature", selectedRecipe.Temperature)
