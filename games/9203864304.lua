@@ -196,21 +196,20 @@ run(function()
 
     local CookingEvent = game:GetService("ReplicatedStorage"):WaitForChild("CookingEvent")
     local Purchase5 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase5")
-    local Purchase2 = game:GetService("ReplicatedStorage"):WaitForChild("Purchase2")
 
-    local function hasMeteorites(inventory)
+    local function hasSSitems(inventory)
         local count = 0
+        local count2 = 0
 
         for _, item in ipairs(inventory) do
             if item.Name == "Meteorite" then
-                count = count + 1
-                if count >= 2 then
-                    return true
-                end
+                count += 1
+            elseif item.Name == "Almond Water" then
+                count += 1
             end
         end
     
-        return false
+        return (count + count2) >= 4 and true or false
     end
 
     local recipes = {
@@ -283,12 +282,11 @@ run(function()
                         notif("Chef", "Purchased and Added to stove: ".. ingredient, 2.3)
                     end
                 else
-                    if not hasMeteorites(lplr.Backpack:GetChildren()) then 
+                    if not hasSSitems(lplr.Backpack:GetChildren()) then 
                         notif('Chef', "You need at least 2 meteorites!", 4, 'warning')
                     end
 
                     for _, ingredient in ipairs(selectedRecipe.Ingredients) do
-                        if ingredient ~= 'Meteorite' then Purchase2:FireServer(ingredient) end
                         CookingEvent:FireServer("Add Ingredient", ingredient)
                         notif("Chef", ingredient ~= 'Meteorite' and "Purchased and Added to stove: ".. ingredient or "Added to stove: ".. ingredient, 2.3)
                     end
