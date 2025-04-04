@@ -245,7 +245,7 @@ run(function()
         ["Burger"] = {
             Ingredients = {"Bread", "Beef", "Lettuce", "Tomato"},
             Temperature = 1
-        }
+        },
         ["Space Soup"] = {
             Ingredients = {"Almond Water", "Almond Water", "Meteorite", "Meteorite"},
             Temperature = 1
