@@ -283,7 +283,7 @@ run(function()
                         notif("Chef", "Purchased and Added to stove: ".. ingredient, 2.3)
                     end
                 else
-                    if not hasMeteorites() then 
+                    if not hasMeteorites(lplr.Backpack:GetChildren()) then 
                         notif('Chef', "You need at least 2 meteorites!", 4, 'warning')
                     end
 
