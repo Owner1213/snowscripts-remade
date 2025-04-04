@@ -92,7 +92,7 @@ purchase:FireServer("Roommate")
 task.spawn(function()
     repeat task.wait() until workspace:FindFirstChild("Roommate")
 
-    sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value end, true)
+    sessioninfo:AddItem("Roommate's rent amount", 0, function(val) return workspace.Roommate.Head.Amt.Value == 1000000000 and "max" or workspace.Roommate.Head.Amt.Value end, true)
     sessioninfo:AddItem("Can raise", "no", function(val) return workspace.Roommate.Head.CanRaise.Value and "yes" or "no" end, true)
 end)
 
