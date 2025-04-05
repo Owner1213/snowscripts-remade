@@ -345,7 +345,7 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        local humanoidRootPart = lplr.Character:FindFirstChild("HumanoidRootPart")
         if not humanoidRootPart then
             notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
             return
