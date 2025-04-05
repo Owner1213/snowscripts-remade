@@ -122,7 +122,13 @@ run(function()
         if i.Name == "Money" and not i:IsA("Model") then
             pcall(function() i.Transparency = 1 end)
             local character = lplr.Character or lplr.CharacterAdded:Wait()
-            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+            local humanoidRootPart = character:WaitForChild("HumanoidRootPart", 5)
+            if not humanoidRootPart then
+                notif("CollectMeteorites", "HumanoidRootPart not found within timeout!", 3, "warning")
+                collectMeteorites:Toggle()
+                task.wait(1)
+                return
+            end
             
             if not humanoidRootPart then
                 notif("AutoCollectMoney", "HumanoidRootPart not found!", 3, "warning")
@@ -342,14 +348,23 @@ run(function()
             local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
             
             if not humanoidRootPart then
-                notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
-                collectMeteorites:Toggle()
-                task.wait(1)
-                return
+            local child = i:GetChildren()[1]
+            if child and typeof(child) == "Instance" and child:IsA("BasePart") then
+                child.CanCollide = false
+                child.CFrame = humanoidRootPart.CFrame
+            else
+                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
             end
-
-            i:GetChildren()[1].CanCollide = false
-            i:GetChildren()[1].CFrame = humanoidRootPart.CFrame
+            if child and child:IsA("BasePart") then
+                child.CanCollide = false
+                if child and typeof(child) == "Instance" and child:IsA("BasePart") then
+                    child.CFrame = humanoidRootPart.CFrame
+                else
+                    notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
+                end
+            else
+                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
+            end
         end
     end
 
@@ -360,7 +375,7 @@ run(function()
                 for _, obj in ipairs(workspace:GetDescendants()) do
                     OnDescendantAdded(obj)
                 end
-                
+
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
             else
                 if connection then 
