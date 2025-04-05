@@ -199,17 +199,18 @@ run(function()
 
     local function hasSSitems(inventory)
         local count = 0
-        local count2 = 0
 
         for _, item in ipairs(inventory) do
-            if item.Name == "Meteorite" then
-                count += 1
-            elseif item.Name == "Almond Water" then
-                count += 1
+            if item:IsA("Instance") and item.Name then
+                if item.Name == "Meteorite" then
+                    count += 1
+                elseif item.Name == "Almond Water" then
+                    count += 1
+                end
             end
         end
-    
-        return (count + count2) >= 4 and true or false
+
+        return count >= 4
     end
 
     local recipes = {
@@ -283,7 +284,7 @@ run(function()
                     end
                 else
                     if not hasSSitems(lplr.Backpack:GetChildren()) then 
-                        notif('Chef', "You need at least 2 meteorites!", 4, 'warning')
+                        notif('Chef', "You need at least 2 meteorites and 2 almond waters!", 4, 'warning')
                     end
 
                     for _, ingredient in ipairs(selectedRecipe.Ingredients) do
@@ -291,16 +292,25 @@ run(function()
                         notif("Chef", ingredient ~= 'Meteorite' and "Purchased and Added to stove: ".. ingredient or "Added to stove: ".. ingredient, 2.3)
                     end
                 end
-    
+
                 CookingEvent:FireServer("Change Temperature", selectedRecipe.Temperature)
                 notif("Chef", "Set temperature to:".. tempInWords(selectedRecipe.Temperature), 2.3)
 
                 CookingEvent:FireServer("Cook")
                 notif("Chef", "Cooking ".. recipe.Value, 5)
 
-                chef:Toggle()
-
-                local obj = workspace:WaitForChild(recipe.Value, 60):GetChildren()[1]
+                local recipeObject = workspace:WaitForChild(recipe.Value, 60)
+                if recipeObject then
+                    local obj = recipeObject:GetChildren()[1]
+                    if obj and obj.CanCollide then obj.CanCollide = false end
+                    if obj then
+                        obj.CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
+                    else
+                        notif("AutoCollectRecipe", "Failed to find a valid object for the recipe.", 5, "warning")
+                    end
+                else
+                    notif("AutoCollectRecipe", "Recipe object not found within the timeout period.", 5, "warning")
+                end
                 if obj.CanCollide then obj.CanCollide = false end
                 obj.CFrame = lplr.Character:WaitForChild('HumanoidRootPart').CFrame
             end
