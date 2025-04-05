@@ -352,7 +352,8 @@ run(function()
         end
         local child = i:GetChildren()[1]
 
-        child.CanCollide = false
+        pcall(function() child.CanCollide = false end)
+        pcall(function() child.Transparency = 1 end)
         child.CFrame = humanoidRootPart.CFrame
     end
 
