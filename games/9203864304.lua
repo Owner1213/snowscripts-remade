@@ -151,7 +151,9 @@ run(function()
         Function = function(callback)
             if callback then 
                 for _, obj in ipairs(workspace:GetDescendants()) do
-                    OnDescendantAdded(obj)
+                    if obj:IsA("Tool") and obj.Name == "Meteorite" then
+                        OnDescendantAdded(obj)
+                    end
                 end
                 
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
@@ -343,13 +345,20 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-        if i.Name == "Meteorite" and i:IsA("Tool") then
-            local character = lplr.Character or lplr.CharacterAdded:Wait()
-            local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
             
             if not humanoidRootPart then
+                notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
+                return
+            end
+
             local child = i:GetChildren()[1]
-            if child and typeof(child) == "Instance" and child:IsA("BasePart") then
+
+            local child = i:GetChildren()[1]
+                if not i.Notified then
+                    notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
+                    i.Notified = true
+                end
                 child.CanCollide = false
                 child.CFrame = humanoidRootPart.CFrame
             else
@@ -380,6 +389,7 @@ run(function()
             else
                 if connection then 
                     connection:Disconnect()
+                    connection = nil
                 end
             end
         end
