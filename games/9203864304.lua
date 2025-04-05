@@ -353,19 +353,13 @@ run(function()
 
         local children = i:GetChildren()
         if #children == 0 then
-            if not i.Notified then
-                notif("CollectMeteorites", "Meteorite tool has no children!", 3, "warning")
-                i.Notified = true
-            end
+            notif("CollectMeteorites", "Meteorite tool has no children!", 3, "warning")
             return
         end
 
         local child = children[1]
         if not child or not child:IsA("BasePart") then
-            if not i.Notified then
-                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-                i.Notified = true
-            end
+            notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
             return
         end
 
