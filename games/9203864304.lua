@@ -345,49 +345,44 @@ run(function()
     local connection
 
     local function OnDescendantAdded(i)
-            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-            
-            if not humanoidRootPart then
-                notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
-                return
-            end
-
-            local child = i:GetChildren()[1]
-
-            local child = i:GetChildren()[1]
-                if not i.Notified then
-                    notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-                    i.Notified = true
-                end
-                child.CanCollide = false
-                child.CFrame = humanoidRootPart.CFrame
-            else
-                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-            end
-            if child and child:IsA("BasePart") then
-                child.CanCollide = false
-                if child and typeof(child) == "Instance" and child:IsA("BasePart") then
-                    child.CFrame = humanoidRootPart.CFrame
-                else
-                    notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-                end
-            else
-                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-            end
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if not humanoidRootPart then
+            notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
+            return
         end
+
+        local children = i:GetChildren()
+        if #children == 0 then
+            if not i.Notified then
+                notif("CollectMeteorites", "Meteorite tool has no children!", 3, "warning")
+                i.Notified = true
+            end
+            return
+        end
+
+        local child = children[1]
+        if not child or not child:IsA("BasePart") then
+            if not i.Notified then
+                notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
+                i.Notified = true
+            end
+            return
+        end
+
+        child.CanCollide = false
+        child.CFrame = humanoidRootPart.CFrame
     end
 
     collectMeteorites = vape.Categories.World:CreateModule({
         Name = 'CollectMeteorites',
-        Function = function(callback) 
-            if callback then 
+        Function = function(callback)
+            if callback then
                 for _, obj in ipairs(workspace:GetDescendants()) do
                     OnDescendantAdded(obj)
                 end
-
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
             else
-                if connection then 
+                if connection then
                     connection:Disconnect()
                     connection = nil
                 end
