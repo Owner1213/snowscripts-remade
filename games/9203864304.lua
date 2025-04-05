@@ -350,18 +350,7 @@ run(function()
             notif("CollectMeteorites", "HumanoidRootPart not found!", 3, "warning")
             return
         end
-
-        local children = i:GetChildren()
-        if #children == 0 then
-            notif("CollectMeteorites", "Meteorite tool has no children!", 3, "warning")
-            return
-        end
-
-        local child = children[1]
-        if not child or not child:IsA("BasePart") then
-            notif("CollectMeteorites", "Invalid or missing child for Meteorite tool!", 3, "warning")
-            return
-        end
+        local child = i:GetChildren()[1]
 
         child.CanCollide = false
         child.CFrame = humanoidRootPart.CFrame
@@ -372,7 +361,9 @@ run(function()
         Function = function(callback)
             if callback then
                 for _, obj in ipairs(workspace:GetDescendants()) do
-                    OnDescendantAdded(obj)
+                    if obj:IsA("Tool") and obj.Name == "Meteorite" then
+                        OnDescendantAdded(obj)
+                    end
                 end
                 connection = workspace.DescendantAdded:Connect(OnDescendantAdded)
             else
