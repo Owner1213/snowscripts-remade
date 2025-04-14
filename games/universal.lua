@@ -4603,7 +4603,7 @@ run(function()
 				label.BackgroundTransparency = 1
 				label.Text = '100 ❤️'
 				label.TextSize = 18
-				label.Font = Enum.Font.Arial
+				label.Font = Enum.Font.FredokaOne
 				label.Parent = vape.gui
 				Health:Clean(label)
 				
